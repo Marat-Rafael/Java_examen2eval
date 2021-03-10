@@ -23,7 +23,7 @@ import java.util.Scanner;
  *
  * @author Marat Rafael
  */
-public class Inmueble {
+public abstract class Inmueble {
 
     //atributos
     private static int ID;
