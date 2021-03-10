@@ -54,4 +54,9 @@ public class Inmobiliaria {
         return "Inmobiliaria{" + "listaEnmuebles=" + listaEnmuebles + ", nombreInmobiliaria=" + nombreInmobiliaria + ", cifInmobiliaria=" + cifInmobiliaria + '}';
     }
     
+    public void mostrarTodadInmobiliarias(ArrayList<Inmobiliaria>listaInmobiliarias){
+        for (Inmobiliaria inmo : listaInmobiliarias) {
+            System.out.println(inmo);
+        }
+    }
 }

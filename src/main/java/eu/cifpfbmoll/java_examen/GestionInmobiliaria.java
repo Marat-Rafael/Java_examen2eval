@@ -49,7 +49,11 @@ public class GestionInmobiliaria {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         ArrayList<Inmobiliaria> listaInmobiliarias = new ArrayList<>();
+        
+        iniciarInmobiliaria(listaInmobiliarias);
+        
         loginInmobiliaria(listaInmobiliarias);
 
     }// fin main
@@ -66,13 +70,12 @@ public class GestionInmobiliaria {
             System.out.println("Acceso a la aplicacion de inmobiliaria");
             System.out.println("1 - login");
             System.out.println("0 - salir");
+            System.out.println(hr);
             opcionLogin = scNum.nextByte();
             switch (opcionLogin) {
 
                 case 1:
-
                     acederMenuPrincipal(listaInmobiliarias);
-
                     break;
                 case 0:
                     salirLogin = true;
@@ -88,12 +91,15 @@ public class GestionInmobiliaria {
 
     public static void acederMenuPrincipal(ArrayList<Inmobiliaria> listaInmobiliarias) {
         // buscamos si inmobiliaria en la lista
+        
         System.out.println("CIF: ");
         String cifInmobiliariaBuscado = scString.nextLine();
         int posicionInmobiliaria = buscarCifInmobiliaria(listaInmobiliarias, cifInmobiliariaBuscado);
         if (posicionInmobiliaria == -1) {
             System.out.println("CIF indicado incorrecto");
         } else {
+            System.out.println("Acceso permitido");
+            
             llamarMenuInmobiliaria();
         }
     }
@@ -170,5 +176,34 @@ public class GestionInmobiliaria {
         }
 
     }//fin metodo llamar menu
+
+    public static void iniciarInmobiliaria(ArrayList<Inmobiliaria> listaInmobiliaria) {
+        Inmobiliaria inmoTemp;
+        Terreno terrenoTemp;
+        Vivienda viviendaTemp;
+        for (int i = 0; i < 3; i++) {
+            inmoTemp = new Inmobiliaria();
+            inmoTemp.setCifInmobiliaria("Inmo0" + i);
+            inmoTemp.setNombreInmobiliaria("nombreInmo" + 1);
+            for (int j = 0; j < 3; j++) {
+                terrenoTemp = new Terreno();
+                terrenoTemp.setIdInmueble(i + j);
+                terrenoTemp.setMetrosCuadrados(j * 80);
+                terrenoTemp.setPoblacion("poblac" + j);
+                terrenoTemp.setPrecio(30000 * (i + 1));
+                terrenoTemp.setTipoCalificacion("RUSTICO");
+                inmoTemp.getListaEnmuebles().add(terrenoTemp);
+                viviendaTemp = new Vivienda();
+                viviendaTemp.setIdInmueble(i + j);
+                viviendaTemp.setMetrosCuadrados(j * 80);
+                viviendaTemp.setPoblacion("poblac" + j);
+                viviendaTemp.setPrecio(30000 * (i + 1));
+                viviendaTemp.setDescripcion("descripcion vivienda " + i);
+                viviendaTemp.setNumHabitaciones(i + j + 1);
+                inmoTemp.getListaEnmuebles().add(viviendaTemp);
+            }
+            listaInmobiliaria.add(inmoTemp);
+        }
+    }
 
 }//fin class

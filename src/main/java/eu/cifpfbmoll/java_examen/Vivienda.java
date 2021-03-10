@@ -10,7 +10,8 @@ de lo contrario solicitará al usuario de nuevo el número de habitaciones.
  */
 package eu.cifpfbmoll.java_examen;
 
-import java.util.Scanner;
+
+import java.util.*;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.util.Scanner;
  */
 public class Vivienda extends Inmueble {
 
-    private byte numHabitaciones;
+    private int numHabitaciones;
     private String descripcion;
 
     //constructor
@@ -38,11 +39,11 @@ public class Vivienda extends Inmueble {
         return numHabitaciones;
     }
 
-    public void setNumHabitaciones(byte numHabitaciones) {
+    public void setNumHabitaciones(int numHabitaciones) {
         Scanner scNum = new Scanner(System.in);
         while (numHabitaciones < 1) {
             System.out.println("Debe tener al menos una habitación");
-            this.numHabitaciones = scNum.nextByte();
+            this.numHabitaciones = scNum.nextInt();
         }
         this.numHabitaciones = numHabitaciones;
     }
@@ -61,4 +62,30 @@ public class Vivienda extends Inmueble {
         return super.toString() + " Vivienda {" + "numHabitaciones=" + numHabitaciones + ", descripcion=" + descripcion + '}';
     }
 
+    public Vivienda añadirInmobiliaria() {
+        Vivienda vivienda = new Vivienda();
+        vivienda.solicitarDatos();
+        return vivienda;
+    }
+
+    @Override
+    public void solicitarDatos() {
+        super.solicitarDatos();
+        System.out.println("Numero habitaciones: ");
+        this.setNumHabitaciones(scNum.nextInt());
+        System.out.println("Descripcion:");
+        this.setDescripcion(scString.nextLine());
+    }
+
+    /*
+    Buscar Vivienda. (1,5 puntos) Recibirá como parámetro una lista de
+    Inmuebles y solicitará al usuario un número de habitaciones. El método
+    mostrará toda la información de todas aquellas Viviendas que
+    cumplan con el criterio: número de habitaciones. Este método
+    pertenece a la clase Inmueble.
+     */
+
+    public static void buscarVivienda(ArrayList<Inmueble>listaInmuebles){
+        
+    }
 }
