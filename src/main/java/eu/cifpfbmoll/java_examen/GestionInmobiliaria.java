@@ -2,36 +2,6 @@
 //#Marat Rafael Azizov Azizova – examen 1º DAM 10/03/2021
  */
 
- /*
-El programa principal (1 punto) incluido en la Clase GestionInmobiliaria,
-que se caracteriza por tener una lista de Inmobiliarias y el main con el que
-se gestionará el resto del programa. El main tendrá un menú que se llamará
-indefinidamente hasta que el usuario quiera salir de la aplicación. Hay que
-tener en cuenta que el menú trabaja con una inmobiliaria concreta y ofreciendo
-para ella todas las opciones que se detallan a continuación, por tanto es
-imprescindible saber primero con qué inmobiliaria trabajaremos, por ello,
-desarrolla la solución que consideres más conveniente.
-
-○ Añadir Terreno. (1 punto) Llamará al método solicitar Datos (aparece
-en el punto F) y devolverá un terreno que se añadirá a la lista de
-inmuebles. Este método pertenece a la clase Terreno.
-
-○ Añadir Vivienda.(1 punto) Llamará al método solicitar Datos y añadirá la
-vivienda la lista de inmuebles. Este método pertenece a la clase
-Vivienda.
-
-○ Buscar Vivienda. (1,5 puntos) Recibirá como parámetro una lista de
-Inmuebles y solicitará al usuario un número de habitaciones. El método
-mostrará toda la información de todas aquellas Viviendas que
-cumplan con el criterio: número de habitaciones. Este método
-pertenece a la clase Inmueble.
-
-○ Buscar Terreno.(1,5 puntos) Recibirá como parámetro una lista de
-Inmuebles y solicitará al usuario un tipo de calificación (rústico, urbano y
-urbanizable). El método mostrará toda la información del primer
-terreno que cumpla con la calificación buscada (rústico, urbano y
-urbanizable). Este método pertenece a la clase Inmueble.
- */
 package eu.cifpfbmoll.java_examen;
 
 import java.util.*;
@@ -51,9 +21,10 @@ public class GestionInmobiliaria {
     public static void main(String[] args) {
 
         ArrayList<Inmobiliaria> listaInmobiliarias = new ArrayList<>();
-        
+
         iniciarInmobiliaria(listaInmobiliarias);
-        
+
+        //Inmobiliaria.mostrarTodasInmobiliarias(listaInmobiliarias);
         loginInmobiliaria(listaInmobiliarias);
 
     }// fin main
@@ -91,7 +62,7 @@ public class GestionInmobiliaria {
 
     public static void acederMenuPrincipal(ArrayList<Inmobiliaria> listaInmobiliarias) {
         // buscamos si inmobiliaria en la lista
-        
+
         System.out.println("CIF: ");
         String cifInmobiliariaBuscado = scString.nextLine();
         int posicionInmobiliaria = buscarCifInmobiliaria(listaInmobiliarias, cifInmobiliariaBuscado);
@@ -99,8 +70,8 @@ public class GestionInmobiliaria {
             System.out.println("CIF indicado incorrecto");
         } else {
             System.out.println("Acceso permitido");
-            
-            llamarMenuInmobiliaria();
+
+            llamarMenuInmobiliaria(listaInmobiliarias.get(posicionInmobiliaria).getListaEnmuebles());
         }
     }
 
@@ -116,21 +87,18 @@ public class GestionInmobiliaria {
         int posicion = -1;
         int i = 0;
         boolean encontrado = false;
-
-        while (encontrado && i < listaInmobiliarias.size()) {
-            i++;
-            if (listaInmobiliarias.get(i).getCifInmobiliaria().equals(cifInmobiliariaBuscado)) {
-                posicion = i;
-                encontrado = true;
-            }
-        }
+        for (int j = 0; j < listaInmobiliarias.size(); j++) {
+            if(listaInmobiliarias.get(i).getCifInmobiliaria().equals(cifInmobiliariaBuscado)){
+                posicion=i;               
+            }           
+        }      
         return posicion;
     }
 
     /**
      * metodo para llamar menu principal
      */
-    public static void llamarMenuInmobiliaria() {
+    public static void llamarMenuInmobiliaria(ArrayList<Inmueble> listaInmuebles) {
         try {
 
             boolean salirMenu = false;
@@ -151,16 +119,18 @@ public class GestionInmobiliaria {
                 opcionMenu = scNum.nextByte();
                 switch (opcionMenu) {
                     case 1:
-
+                        Terreno terreno = new Terreno();
+                        listaInmuebles.add(terreno);
                         break;
                     case 2:
-
+                        Vivienda vivienda = new Vivienda();
+                        listaInmuebles.add(vivienda);
                         break;
                     case 3:
-
+                        Inmueble.buscarTerreno(listaInmuebles);
                         break;
                     case 4:
-
+                        Inmueble.buscarVivienda(listaInmuebles);
                         break;
                     case 0:
 
@@ -178,6 +148,8 @@ public class GestionInmobiliaria {
     }//fin metodo llamar menu
 
     public static void iniciarInmobiliaria(ArrayList<Inmobiliaria> listaInmobiliaria) {
+        
+        
         Inmobiliaria inmoTemp;
         Terreno terrenoTemp;
         Vivienda viviendaTemp;

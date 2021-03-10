@@ -30,12 +30,12 @@ public class Terreno extends Inmueble{
     }
 
     public void setTipoCalificacion(String tipo) {
-        this.tipoCalificacion = tipo;
+        this.tipoCalificacion = tipo.toLowerCase();
     }
 
     @Override
     public String toString() {
-        return super.toString()+" Terreno {" + "tipo=" + tipoCalificacion + '}';
+        return super.toString()+" Terreno {" + "tipo=" + tipoCalificacion + '}'+calcularPrecioCompraVenta();
     }
     
     //resto metodos
@@ -45,7 +45,7 @@ public class Terreno extends Inmueble{
     devolverá un terreno que se añadirá a la lista de
     inmuebles. Este método pertenece a la clase Terreno.
     */
-    public static Terreno añadirTerreno(){
+    public Terreno añadirTerreno(){
         Terreno terreno = new Terreno();
         terreno.solicitarDatos();
         return terreno;
@@ -56,5 +56,23 @@ public class Terreno extends Inmueble{
         super.solicitarDatos();
         System.out.println("tipo Calificacion: ");
         this.setTipoCalificacion(scString.nextLine());       
+    }
+
+
+    @Override
+    public String calcularPrecioCompraVenta() {
+        float iva;
+        String info = this.toString();
+        
+        String tipo = this.getTipoCalificacion();
+        if(tipo == "rustico"){
+            iva = 0.4f;
+        }else if ( tipo == "urbano"){
+            iva=0.6f;
+        }else{
+            iva = 0.8f;
+        }
+        double precio = this.getPrecio()+(this.getPrecio()*iva);
+        return info;
     }
 }

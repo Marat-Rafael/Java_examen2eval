@@ -121,5 +121,67 @@ public abstract class Inmueble {
         System.out.println("Precio: ");
         this.setPrecio(scNum.nextDouble());
     }
+    
+        /*
+    Buscar Vivienda. (1,5 puntos) Recibirá como parámetro una lista de
+    Inmuebles y solicitará al usuario un número de habitaciones. El método
+    mostrará toda la información de todas aquellas Viviendas que
+    cumplan con el criterio: número de habitaciones. Este método
+    pertenece a la clase Inmueble.
+     */
 
+    public static void buscarVivienda(ArrayList<Inmueble>listaInmuebles){
+        System.out.println("Numero de habitaciones: ");
+        int numHab = scNum.nextInt();
+        
+        ArrayList<Vivienda> listaViviendasCoinciden=new ArrayList<>();
+        
+        for (int i = 0; i < listaInmuebles.size(); i++) {
+            if(listaInmuebles.get(i) instanceof Vivienda){
+               if( ((Vivienda)listaInmuebles.get(i)).getNumHabitaciones() == numHab ) {
+                  listaViviendasCoinciden.add((Vivienda)listaInmuebles.get(i));
+               }
+            }           
+        }
+        for (Vivienda vivienda : listaViviendasCoinciden) {
+            System.out.println(vivienda);
+        }
+    }//
+    
+    /*
+    Buscar Terreno.(1,5 puntos) Recibirá como parámetro una lista de
+    Inmuebles y solicitará al usuario un tipo de calificación (rústico, urbano y
+    urbanizable). El método mostrará toda la información del primer
+    terreno que cumpla con la calificación buscada (rústico, urbano y
+    urbanizable). Este método pertenece a la clase Inmueble.
+    */
+    public static void buscarTerreno(ArrayList<Inmueble>listaInmuebles){
+        System.out.println("Escribe tipo de calificacion buscado: \nrustico, urbano o urbanizable ");
+        String tipo = scString.nextLine().toLowerCase();
+        
+        for (int i = 0; i < listaInmuebles.size(); i++) {
+            if(listaInmuebles.get(i) instanceof Terreno){
+                
+                if( ((Terreno)listaInmuebles.get(i)).getTipoCalificacion().equals(tipo)){
+                    System.out.println(listaInmuebles.get(i).toString());
+                }
+            }           
+        }       
+    }//fin buscarTerreno
+    /*
+    Calcular PrecioCompraventa. (1 punto). Este método será de obligada
+implementación por las clases herederas, ya que el precio de compraventa es
+su precio+impuestos y los impuestos varían según el tipo de Inmueble. Este
+método se llamará desde el método toString de las diferentes clases
+implicadas, así mostrará el precio de compraventa según sea Vivienda o
+Terreno.
+○ En el caso de la clase Vivienda los impuestos vendrán dados por el
+cálculo: precio * IVA que es de un 10%, después del cálculo imprimirá
+los datos de la vivienda y a continuación el importe de compraventa.
+○ Para el caso de los terrenos, su precio de compraventa será de
+precio*IVA, pero su IVA varía según la calificación (rústico 4%, urbano
+6% y urbanizable 8%). Después del cálculo imprimirá los datos de la
+vivienda y a continuación el importe de compraventa.
+    */
+    public abstract String calcularPrecioCompraVenta();
 }

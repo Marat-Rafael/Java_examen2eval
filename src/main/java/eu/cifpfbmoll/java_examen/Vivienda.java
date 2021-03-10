@@ -10,7 +10,6 @@ de lo contrario solicitará al usuario de nuevo el número de habitaciones.
  */
 package eu.cifpfbmoll.java_examen;
 
-
 import java.util.*;
 
 /**
@@ -59,10 +58,10 @@ public class Vivienda extends Inmueble {
 
     @Override
     public String toString() {
-        return super.toString() + " Vivienda {" + "numHabitaciones=" + numHabitaciones + ", descripcion=" + descripcion + '}';
+        return super.toString() + " Vivienda {" + "numHabitaciones=" + numHabitaciones + ", descripcion=" + descripcion + '}'+calcularPrecioCompraVenta();
     }
 
-    public Vivienda añadirInmobiliaria() {
+    public Vivienda añadirVivienda() {
         Vivienda vivienda = new Vivienda();
         vivienda.solicitarDatos();
         return vivienda;
@@ -77,15 +76,17 @@ public class Vivienda extends Inmueble {
         this.setDescripcion(scString.nextLine());
     }
 
-    /*
-    Buscar Vivienda. (1,5 puntos) Recibirá como parámetro una lista de
-    Inmuebles y solicitará al usuario un número de habitaciones. El método
-    mostrará toda la información de todas aquellas Viviendas que
-    cumplan con el criterio: número de habitaciones. Este método
-    pertenece a la clase Inmueble.
+    /**
+     * En el caso de la clase Vivienda los impuestos vendrán dados por el
+     * cálculo: precio * IVA que es de un 10%, después del cálculo imprimirá los
+     * datos de la vivienda y a continuación el importe de compraventa.
+     *
+     * @return
      */
-
-    public static void buscarVivienda(ArrayList<Inmueble>listaInmuebles){
-        
+    @Override
+    public String calcularPrecioCompraVenta() {
+        String info= this.toString();
+        double precio = this.getPrecio()+(this.getPrecio()*0.1);
+        return info;
     }
 }
