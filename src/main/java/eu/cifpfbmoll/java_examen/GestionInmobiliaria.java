@@ -1,10 +1,11 @@
 /*
 //#Marat Rafael Azizov Azizova – examen 1º DAM 10/03/2021
  */
-
 package eu.cifpfbmoll.java_examen;
 
 import java.util.*;
+
+//proximo vez hay que usar enum tipoTerreno {RUSTICO,URBANO,URBANIZABLE};
 
 /**
  *
@@ -87,11 +88,27 @@ public class GestionInmobiliaria {
         int posicion = -1;
         int i = 0;
         boolean encontrado = false;
-        for (int j = 0; j < listaInmobiliarias.size(); j++) {
-            if(listaInmobiliarias.get(i).getCifInmobiliaria().equals(cifInmobiliariaBuscado)){
-                posicion=i;               
-            }           
-        }      
+        for (int j = 0; j < listaInmobiliarias.size() && !encontrado; j++) {
+            if (listaInmobiliarias.get(i).getCifInmobiliaria().equals(cifInmobiliariaBuscado)) {
+                posicion = i;
+                encontrado = true;
+            }
+        }
+        return posicion;
+    }
+
+    private static int buscarCifInmobiliaria2(ArrayList<Inmobiliaria> listaInmobiliarias, String cifInmobiliariaBuscado) {
+        int posicion = -1;
+        int i = 0;
+        boolean encontrado = false;
+
+        while (i < listaInmobiliarias.size() && !encontrado) {
+            if (listaInmobiliarias.get(i).getCifInmobiliaria().equals(cifInmobiliariaBuscado)) {
+                posicion = i;
+                encontrado = true;
+                i++;
+            }
+        }
         return posicion;
     }
 
@@ -120,10 +137,12 @@ public class GestionInmobiliaria {
                 switch (opcionMenu) {
                     case 1:
                         Terreno terreno = new Terreno();
+                        terreno.solicitarDatos();
                         listaInmuebles.add(terreno);
                         break;
                     case 2:
                         Vivienda vivienda = new Vivienda();
+                        vivienda.solicitarDatos();
                         listaInmuebles.add(vivienda);
                         break;
                     case 3:
@@ -148,8 +167,7 @@ public class GestionInmobiliaria {
     }//fin metodo llamar menu
 
     public static void iniciarInmobiliaria(ArrayList<Inmobiliaria> listaInmobiliaria) {
-        
-        
+
         Inmobiliaria inmoTemp;
         Terreno terrenoTemp;
         Vivienda viviendaTemp;

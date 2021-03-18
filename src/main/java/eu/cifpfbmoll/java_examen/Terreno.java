@@ -62,7 +62,7 @@ public class Terreno extends Inmueble{
     @Override
     public String calcularPrecioCompraVenta() {
         float iva;
-        String info = this.toString();
+        String info = "El precio con iva es: ";
         
         String tipo = this.getTipoCalificacion();
         if(tipo == "rustico"){
@@ -73,6 +73,7 @@ public class Terreno extends Inmueble{
             iva = 0.8f;
         }
         double precio = this.getPrecio()+(this.getPrecio()*iva);
-        return info;
+        
+        return info+(double)Math.round(precio*100)/100;
     }
 }
