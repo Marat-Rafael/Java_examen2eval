@@ -40,7 +40,7 @@ public abstract class Inmueble {
         ID++;
         idInmueble = ID;
     }
-    //usar setters 
+
     //constructor con todos atributos
     public Inmueble(int metrosCuadrados, double precio, String poblacion) {
         ID++;

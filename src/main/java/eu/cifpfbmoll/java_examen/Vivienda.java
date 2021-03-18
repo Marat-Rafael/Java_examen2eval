@@ -26,12 +26,11 @@ public class Vivienda extends Inmueble {
     public Vivienda() {
     }
 
-    // usar setters!!!
-    // constructor copia
+    //constructor copia
     public Vivienda(Vivienda vivienda) {
         super(vivienda.getMetrosCuadrados(), vivienda.getPrecio(), vivienda.getPoblacion());
-        this.setDescripcion(descripcion);
-        this.setNumHabitaciones(numHabitaciones);
+        this.numHabitaciones = vivienda.numHabitaciones;
+        this.descripcion = vivienda.descripcion;
     }
 
     //getter/setter
@@ -59,7 +58,7 @@ public class Vivienda extends Inmueble {
 
     @Override
     public String toString() {
-        return super.toString() + " Vivienda {" + "numHabitaciones=" + numHabitaciones + ", descripcion=" + descripcion + '}' + calcularPrecioCompraVenta();
+        return super.toString() + " Vivienda {" + "numHabitaciones=" + numHabitaciones + ", descripcion=" + descripcion + '}'+calcularPrecioCompraVenta();
     }
 
     public Vivienda añadirVivienda() {
@@ -86,8 +85,8 @@ public class Vivienda extends Inmueble {
      */
     @Override
     public String calcularPrecioCompraVenta() {
-        String info = "El precio con iva es: ";
-        double precio = this.getPrecio() + (this.getPrecio() * 0.1);
-        return info + precio;
+        String info= this.toString();
+        double precio = this.getPrecio()+(this.getPrecio()*0.1);
+        return info;
     }
 }
