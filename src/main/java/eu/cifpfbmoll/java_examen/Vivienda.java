@@ -17,6 +17,8 @@ import java.util.*;
  * @author Marat Rafael
  */
 public class Vivienda extends Inmueble {
+    //constante
+    private final static float IVA_VIVIENDA = 0.1f;
 
     private int numHabitaciones;
     private String descripcion;
@@ -29,8 +31,8 @@ public class Vivienda extends Inmueble {
     //constructor copia
     public Vivienda(Vivienda vivienda) {
         super(vivienda.getMetrosCuadrados(), vivienda.getPrecio(), vivienda.getPoblacion());
-        this.numHabitaciones = vivienda.numHabitaciones;
-        this.descripcion = vivienda.descripcion;
+        this.setNumHabitaciones(vivienda.getNumHabitaciones());
+        this.setDescripcion(vivienda.getDescripcion());
     }
 
     //getter/setter
@@ -84,9 +86,9 @@ public class Vivienda extends Inmueble {
      * @return
      */
     @Override
-    public String calcularPrecioCompraVenta() {
-        String info= this.toString();
-        double precio = this.getPrecio()+(this.getPrecio()*0.1);
-        return info;
+    public String calcularPrecioCompraVenta() {    
+        double precioConIva  =this.getPrecio()+(this.getPrecio()*IVA_VIVIENDA);
+        String precioFinal="Precio de vivienda con iva: "+ Math.round(precioConIva)*100/100;        
+        return precioFinal;
     }
 }

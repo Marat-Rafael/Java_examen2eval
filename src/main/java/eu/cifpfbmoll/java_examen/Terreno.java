@@ -14,38 +14,67 @@ import java.util.*;
  *
  * @author Marat Rafael
  */
-public class Terreno extends Inmueble{
+public class Terreno extends Inmueble {
+
+    //constantes
+    private final static float IVA_RUSTICO = 0.4f;
+    private final static float IVA_URBANO = 0.6f;
+    private final static float IVA_URBANIZABLE = 0.8f;
+
     static Scanner scNum = new Scanner(System.in);
     static Scanner scString = new Scanner(System.in);
     //atributos
-    private String tipoCalificacion;
-    //constructor
+    // tipoTerreno hace referencia a enum 
+    private tipoTerreno tipoCalificacion;
 
+    //constructor
     public Terreno() {
     }
-    //getter/setter
 
-    public String getTipoCalificacion() {
+    //getter/setter
+    // devuelve enum tipoTerreno
+    public tipoTerreno getTipoCalificacion() {
         return tipoCalificacion;
     }
 
-    public void setTipoCalificacion(String tipo) {
-        this.tipoCalificacion = tipo.toLowerCase();
+    public void setTipoCalificacion(tipoTerreno tipoTerreno) {
+        this.tipoCalificacion = tipoTerreno;
+    }
+
+    public void setTipoCalificacion() {
+        System.out.println("Tipo del terreno: ");
+        System.out.println("1-rustico");
+        System.out.println("2-urbano");
+        System.out.println("3-urbanizable");
+        byte opcionTipoTerreno = scNum.nextByte();
+        switch (opcionTipoTerreno) {
+            case 1:
+                this.tipoCalificacion = tipoTerreno.RUSTICO;
+                break;
+            case 2:
+                this.tipoCalificacion = tipoTerreno.URBANO;
+                break;
+            case 3:
+                this.tipoCalificacion = tipoTerreno.URBANIZABLE;
+            default:
+                System.out.println("Error: tipo del terreno introducido no es correcto");
+        }
+
     }
 
     @Override
     public String toString() {
-        return super.toString()+" Terreno {" + "tipo=" + tipoCalificacion + '}'+calcularPrecioCompraVenta();
+        return super.toString() + " Terreno {" + "tipo=" + tipoCalificacion + '}' + calcularPrecioCompraVenta();
     }
-    
+
     //resto metodos
     /*
     Añadir Terreno. (1 punto) 
     Llamará al método solicitar Datos (aparece en el punto F) y 
     devolverá un terreno que se añadirá a la lista de
     inmuebles. Este método pertenece a la clase Terreno.
-    */
-    public Terreno añadirTerreno(){
+     */
+    public Terreno añadirTerreno() {
         Terreno terreno = new Terreno();
         terreno.solicitarDatos();
         return terreno;
@@ -55,24 +84,32 @@ public class Terreno extends Inmueble{
     public void solicitarDatos() {
         super.solicitarDatos();
         System.out.println("tipo Calificacion: ");
-        this.setTipoCalificacion(scString.nextLine());       
+        this.setTipoCalificacion();
     }
 
-
+    /*
+    Para el caso de los terrenos, su precio de compraventa será de
+precio*IVA, pero su IVA varía según la calificación (rústico 4%, urbano
+6% y urbanizable 8%). Después del cálculo imprimirá los datos de la
+vivienda y a continuación el importe de compraventa.
+     */
     @Override
     public String calcularPrecioCompraVenta() {
-        float iva;
-        String info = this.toString();
-        
-        String tipo = this.getTipoCalificacion();
-        if(tipo == "rustico"){
-            iva = 0.4f;
-        }else if ( tipo == "urbano"){
-            iva=0.6f;
-        }else{
-            iva = 0.8f;
+        double precioConIva = 0;  
+
+        switch (this.getTipoCalificacion()) {
+            case RUSTICO:
+                precioConIva = this.getPrecio() + (this.getPrecio() * IVA_RUSTICO);
+                break;
+            case URBANO:
+                precioConIva = this.getPrecio() + (this.getPrecio() * IVA_URBANO);
+                break;
+            case URBANIZABLE:
+                precioConIva = this.getPrecio() + (this.getPrecio() * IVA_URBANIZABLE);
+                break;
         }
-        double precio = this.getPrecio()+(this.getPrecio()*iva);
-        return info;
+            
+        String precioFinal = "Precio del terreno con iva: " + Math.round(precioConIva)*100/100;
+        return precioFinal;
     }
 }

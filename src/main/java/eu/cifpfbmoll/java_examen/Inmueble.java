@@ -17,7 +17,6 @@ El precio nunca puede ser menor o igual a cero en toda nuestra aplicación
  */
 package eu.cifpfbmoll.java_examen;
 
-
 import java.util.*;
 
 /**
@@ -25,6 +24,7 @@ import java.util.*;
  * @author Marat Rafael
  */
 public abstract class Inmueble {
+
     static Scanner scNum = new Scanner(System.in);
     static Scanner scString = new Scanner(System.in);
     //atributos
@@ -45,9 +45,9 @@ public abstract class Inmueble {
     public Inmueble(int metrosCuadrados, double precio, String poblacion) {
         ID++;
         idInmueble = ID;
-        this.metrosCuadrados = metrosCuadrados;
-        this.precio = precio;
-        this.poblacion = poblacion;
+        this.setMetrosCuadrados(metrosCuadrados);
+        this.setPrecio(precio);
+        this.setPoblacion(poblacion);
 
     }
 
@@ -55,9 +55,9 @@ public abstract class Inmueble {
     public Inmueble(Inmueble inmueble) {
         ID++;
         idInmueble = ID;
-        this.metrosCuadrados = inmueble.metrosCuadrados;
-        this.precio = inmueble.precio;
-        this.poblacion = inmueble.poblacion;
+        this.setMetrosCuadrados(inmueble.getMetrosCuadrados());
+        this.setPrecio(inmueble.getPrecio());
+        this.setPoblacion(inmueble.getPoblacion());
     }
 
     // getter/setter
@@ -121,53 +121,89 @@ public abstract class Inmueble {
         System.out.println("Precio: ");
         this.setPrecio(scNum.nextDouble());
     }
-    
-        /*
+
+    /*
     Buscar Vivienda. (1,5 puntos) Recibirá como parámetro una lista de
     Inmuebles y solicitará al usuario un número de habitaciones. El método
     mostrará toda la información de todas aquellas Viviendas que
     cumplan con el criterio: número de habitaciones. Este método
     pertenece a la clase Inmueble.
      */
-
-    public static void buscarVivienda(ArrayList<Inmueble>listaInmuebles){
+    public static void buscarVivienda(ArrayList<Inmueble> listaInmuebles) {
         System.out.println("Numero de habitaciones: ");
         int numHab = scNum.nextInt();
         
-        ArrayList<Vivienda> listaViviendasCoinciden=new ArrayList<>();
-        
+        // tenemos que buscar todos , asi que usamos for
+
         for (int i = 0; i < listaInmuebles.size(); i++) {
-            if(listaInmuebles.get(i) instanceof Vivienda){
-               if( ((Vivienda)listaInmuebles.get(i)).getNumHabitaciones() == numHab ) {
-                  listaViviendasCoinciden.add((Vivienda)listaInmuebles.get(i));
-               }
-            }           
+            if (listaInmuebles.get(i) instanceof Vivienda) {
+                if (((Vivienda) listaInmuebles.get(i)).getNumHabitaciones() == numHab) {                 
+                    System.out.println( listaInmuebles.get(i).toString());
+                }
+            }
         }
-        for (Vivienda vivienda : listaViviendasCoinciden) {
-            System.out.println(vivienda);
-        }
-    }//
-    
+    } //fin metodo buscarVivienda
+
     /*
     Buscar Terreno.(1,5 puntos) Recibirá como parámetro una lista de
     Inmuebles y solicitará al usuario un tipo de calificación (rústico, urbano y
     urbanizable). El método mostrará toda la información del primer
     terreno que cumpla con la calificación buscada (rústico, urbano y
     urbanizable). Este método pertenece a la clase Inmueble.
-    */
-    public static void buscarTerreno(ArrayList<Inmueble>listaInmuebles){
-        System.out.println("Escribe tipo de calificacion buscado: \nrustico, urbano o urbanizable ");
-        String tipo = scString.nextLine().toLowerCase();
-        
-        for (int i = 0; i < listaInmuebles.size(); i++) {
-            if(listaInmuebles.get(i) instanceof Terreno){
-                
-                if( ((Terreno)listaInmuebles.get(i)).getTipoCalificacion().equals(tipo)){
-                    System.out.println(listaInmuebles.get(i).toString());
+     */
+    public static void buscarTerreno(ArrayList<Inmueble> listaInmuebles) {
+        // buscamos solo  primero, asi qu usamos while
+        System.out.println("tipo de calificacion buscado: \n1-rustico, \n2-urbano  \n3-urbanizable ");
+        byte opcionTipoTerreno = scNum.nextByte();
+        int j = 0;
+        boolean encontrado = false;
+        switch (opcionTipoTerreno) {
+            case 1:
+
+                while (!encontrado && j < listaInmuebles.size()) {
+                    if (listaInmuebles.get(j) instanceof Terreno) {
+                        if (((Terreno) listaInmuebles.get(j)).getTipoCalificacion().equals(tipoTerreno.RUSTICO)) {
+                            System.out.println(listaInmuebles.get(j).toString());
+                            encontrado = true;
+                        }
+                    }
+                    j++;
                 }
-            }           
-        }       
+                break;
+            case 2:
+                while (!encontrado && j < listaInmuebles.size()) {
+
+                    if (listaInmuebles.get(j) instanceof Terreno) {
+                        if (((Terreno) listaInmuebles.get(j)).getTipoCalificacion().equals(tipoTerreno.URBANO)) {
+                            System.out.println(listaInmuebles.get(j).toString());
+                            encontrado = true;
+                        }
+                    }
+                    j++;
+                }
+                break;
+            case 3:
+
+                while (!encontrado && j < listaInmuebles.size()) {
+                    if (listaInmuebles.get(j) instanceof Terreno) {
+                        if (((Terreno) listaInmuebles.get(j)).getTipoCalificacion().equals(tipoTerreno.URBANIZABLE)) {
+                            System.out.println(listaInmuebles.get(j).toString());
+                            encontrado = true;
+                        }
+                    }
+                    j++;
+                }
+                break;
+            default:
+                System.out.println("Opciones disponibles: ");
+                System.out.println("tipos de calificacion 1-rustico, 2-urbano, 3-urbanizable ");
+        }
+        if (encontrado == false) {
+            System.out.println("No encontramos terreno ");
+        }
+
     }//fin buscarTerreno
+
     /*
     Calcular PrecioCompraventa. (1 punto). Este método será de obligada
 implementación por las clases herederas, ya que el precio de compraventa es
@@ -182,6 +218,6 @@ los datos de la vivienda y a continuación el importe de compraventa.
 precio*IVA, pero su IVA varía según la calificación (rústico 4%, urbano
 6% y urbanizable 8%). Después del cálculo imprimirá los datos de la
 vivienda y a continuación el importe de compraventa.
-    */
+     */
     public abstract String calcularPrecioCompraVenta();
 }

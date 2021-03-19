@@ -99,7 +99,7 @@ public class GestionInmobiliaria {
      * metodo para llamar menu principal
      */
     public static void llamarMenuInmobiliaria(ArrayList<Inmueble> listaInmuebles) {
-        try {
+        
 
             boolean salirMenu = false;
             byte opcionMenu;
@@ -120,10 +120,12 @@ public class GestionInmobiliaria {
                 switch (opcionMenu) {
                     case 1:
                         Terreno terreno = new Terreno();
+                        terreno.solicitarDatos();
                         listaInmuebles.add(terreno);
                         break;
                     case 2:
                         Vivienda vivienda = new Vivienda();
+                        vivienda.solicitarDatos();
                         listaInmuebles.add(vivienda);
                         break;
                     case 3:
@@ -141,9 +143,7 @@ public class GestionInmobiliaria {
                         break;
                 }
             } while (!salirMenu);
-        } catch (Exception e) {
-            System.out.println("Acepta solo valores numericos");
-        }
+
 
     }//fin metodo llamar menu
 
@@ -162,20 +162,21 @@ public class GestionInmobiliaria {
                 terrenoTemp.setIdInmueble(i + j);
                 terrenoTemp.setMetrosCuadrados(j * 80);
                 terrenoTemp.setPoblacion("poblac" + j);
-                terrenoTemp.setPrecio(30000 * (i + 1));
-                terrenoTemp.setTipoCalificacion("RUSTICO");
+                terrenoTemp.setPrecio(30000 * (j + 1));
+                terrenoTemp.setTipoCalificacion(tipoTerreno.RUSTICO);
                 inmoTemp.getListaEnmuebles().add(terrenoTemp);
                 viviendaTemp = new Vivienda();
                 viviendaTemp.setIdInmueble(i + j);
                 viviendaTemp.setMetrosCuadrados(j * 80);
                 viviendaTemp.setPoblacion("poblac" + j);
-                viviendaTemp.setPrecio(30000 * (i + 1));
+                viviendaTemp.setPrecio(30000 * (j + 1));
                 viviendaTemp.setDescripcion("descripcion vivienda " + i);
                 viviendaTemp.setNumHabitaciones(i + j + 1);
                 inmoTemp.getListaEnmuebles().add(viviendaTemp);
             }
             listaInmobiliaria.add(inmoTemp);
         }
+        
     }
 
 }//fin class
