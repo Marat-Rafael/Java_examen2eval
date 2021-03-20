@@ -3,4 +3,5 @@ Copia del examen del segundo trimestre "Herencia y polimorfismo" con modificacio
 1. elimino bucle infinito que esta provocado dentro del metodo calcularPrecio() que llamava al toString() que a su vez volvia a llamar calcularPrecio()
 2. Cambiando algunos 'for' por 'while'
 3. añadir dentro de algunos los bucles 'boolean encontrado = false;'
-4. pruebo tratar excepciones, pasando maron al que llama al metodo hasta menu principal
+4. añadir setters en constructor
+5. pruebo tratar excepciones, pasando maron al que llama al metodo hasta menu principal
