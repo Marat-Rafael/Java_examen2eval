@@ -4,4 +4,5 @@ Copia del examen del segundo trimestre "Herencia y polimorfismo" con modificacio
 2. Cambiando algunos 'for' por 'while'
 3. añadir dentro de algunos los bucles 'boolean encontrado = false;'
 4. añadir setters en constructor
-5. pruebo tratar excepciones, pasando maron al que llama al metodo hasta menu principal
+5. añadir enum para tipo del terreno
+6. pruebo tratar excepciones, pasando maron al que llama al metodo hasta menu principal
