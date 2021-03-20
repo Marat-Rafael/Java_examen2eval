@@ -113,7 +113,7 @@ public abstract class Inmueble {
         return "Inmueble{" + "metrosCuadrados=" + metrosCuadrados + ", precio=" + precio + ", poblacion=" + poblacion + ", idInmueble=" + idInmueble + '}';
     }
 
-    public void solicitarDatos() {
+    public void solicitarDatos() throws Exception{
         System.out.println("Metros cuadrados: ");
         this.setMetrosCuadrados(scNum.nextInt());
         System.out.println("Poblacion: ");
@@ -129,16 +129,15 @@ public abstract class Inmueble {
     cumplan con el criterio: número de habitaciones. Este método
     pertenece a la clase Inmueble.
      */
-    public static void buscarVivienda(ArrayList<Inmueble> listaInmuebles) {
+    public static void buscarVivienda(ArrayList<Inmueble> listaInmuebles) throws Exception{
         System.out.println("Numero de habitaciones: ");
         int numHab = scNum.nextInt();
-        
-        // tenemos que buscar todos , asi que usamos for
 
+        // tenemos que buscar todos , asi que usamos for
         for (int i = 0; i < listaInmuebles.size(); i++) {
             if (listaInmuebles.get(i) instanceof Vivienda) {
-                if (((Vivienda) listaInmuebles.get(i)).getNumHabitaciones() == numHab) {                 
-                    System.out.println( listaInmuebles.get(i).toString());
+                if (((Vivienda) listaInmuebles.get(i)).getNumHabitaciones() == numHab) {
+                    System.out.println(listaInmuebles.get(i).toString());
                 }
             }
         }
@@ -151,7 +150,7 @@ public abstract class Inmueble {
     terreno que cumpla con la calificación buscada (rústico, urbano y
     urbanizable). Este método pertenece a la clase Inmueble.
      */
-    public static void buscarTerreno(ArrayList<Inmueble> listaInmuebles) {
+    public static void buscarTerreno(ArrayList<Inmueble> listaInmuebles) throws Exception{
         // buscamos solo  primero, asi qu usamos while
         System.out.println("tipo de calificacion buscado: \n1-rustico, \n2-urbano  \n3-urbanizable ");
         byte opcionTipoTerreno = scNum.nextByte();

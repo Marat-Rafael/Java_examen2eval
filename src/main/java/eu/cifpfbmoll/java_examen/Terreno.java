@@ -41,7 +41,7 @@ public class Terreno extends Inmueble {
         this.tipoCalificacion = tipoTerreno;
     }
 
-    public void setTipoCalificacion() {
+    public void setTipoCalificacion() throws Exception{
         System.out.println("Tipo del terreno: ");
         System.out.println("1-rustico");
         System.out.println("2-urbano");
@@ -74,14 +74,15 @@ public class Terreno extends Inmueble {
     devolverá un terreno que se añadirá a la lista de
     inmuebles. Este método pertenece a la clase Terreno.
      */
-    public Terreno añadirTerreno() {
+    public Terreno añadirTerreno() throws Exception{
+        
         Terreno terreno = new Terreno();
         terreno.solicitarDatos();
         return terreno;
     }
 
     @Override
-    public void solicitarDatos() {
+    public void solicitarDatos() throws Exception{
         super.solicitarDatos();
         System.out.println("tipo Calificacion: ");
         this.setTipoCalificacion();
@@ -107,8 +108,7 @@ vivienda y a continuación el importe de compraventa.
             case URBANIZABLE:
                 precioConIva = this.getPrecio() + (this.getPrecio() * IVA_URBANIZABLE);
                 break;
-        }
-            
+        }           
         String precioFinal = "Precio del terreno con iva: " + Math.round(precioConIva)*100/100;
         return precioFinal;
     }

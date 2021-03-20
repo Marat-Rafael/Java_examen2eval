@@ -63,14 +63,14 @@ public class Vivienda extends Inmueble {
         return super.toString() + " Vivienda {" + "numHabitaciones=" + numHabitaciones + ", descripcion=" + descripcion + '}'+calcularPrecioCompraVenta();
     }
 
-    public Vivienda añadirVivienda() {
+    public Vivienda añadirVivienda() throws Exception {
         Vivienda vivienda = new Vivienda();
         vivienda.solicitarDatos();
         return vivienda;
     }
 
     @Override
-    public void solicitarDatos() {
+    public void solicitarDatos() throws Exception{
         super.solicitarDatos();
         System.out.println("Numero habitaciones: ");
         this.setNumHabitaciones(scNum.nextInt());
